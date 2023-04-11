@@ -12,7 +12,7 @@
 
 .title-container{
     display: flex;
-    font-size: 12px;
+    font-size: 2vh;
     justify-content: space-between;
     padding: 1px 10px;
 }
@@ -20,6 +20,7 @@
 .info-container{
     display: flex;
     justify-content: space-around;
+    font-size: 2vh;
 }
 
 button{

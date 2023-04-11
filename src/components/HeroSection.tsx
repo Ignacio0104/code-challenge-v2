@@ -64,7 +64,7 @@ const HeroSection = () => {
     <div>
       <div
         className="ag-theme-alpine-dark cell-style"
-        style={{ width: "1000px", height: "400px" }}
+        style={{ width: "80vw", height: "70vh" }}
       >
         <AgGridReact
           rowData={data?.data.data.characters.results}

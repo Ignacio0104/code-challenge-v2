@@ -14,7 +14,7 @@
 
 .title-container {
   display: flex;
-  font-size: 12px;
+  font-size: 2vh;
   justify-content: space-between;
   padding: 1px 10px;
 }
@@ -22,10 +22,11 @@
 .info-container {
   display: flex;
   justify-content: space-around;
+  font-size: 2vh;
 }
 
 button {
-  font-size: 20px;
+  font-size: 3vh;
   color: white;
   cursor: pointer;
   padding: 1px 80px;
