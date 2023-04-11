@@ -1,7 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
 import "./App.css";
-import { useCharacterData } from "./hooks/useCharacterData";
-import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import Navbar from "./components/Navbar";

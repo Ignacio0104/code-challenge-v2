@@ -4,6 +4,7 @@ import { CellClickedEvent } from "ag-grid-community";
 import { useCharacterData } from "../hooks/useCharacterData";
 import "../style/HeroSection.css"
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 const HeroSection = () => {
   interface valueObject {
@@ -56,7 +57,6 @@ const HeroSection = () => {
   );
 
   const cellClickedListener = (event: CellClickedEvent<any, any>) => {
-
     navigate("/character",{state: event.data})
   };
 
@@ -71,7 +71,8 @@ const HeroSection = () => {
           columnDefs={columnDefs}
           animateRows={true}
           rowSelection="multiple"
-          overlayNoRowsTemplate="Loading..."
+          overlayNoRowsTemplate='<Loading style="margin: 7em"></div> <span class="ag-overlay-loading-center " style="font-size: 18px; z-index: 100000"> Loading Rows ...</span>'
+          overlayLoadingTemplate='<Loading style="margin: 7em"></div> <span class="ag-overlay-loading-center " style="font-size: 18px; z-index: 100000"> Loading Rows ...</span>'
           onCellClicked={cellClickedListener}
           defaultColDef={defaultColDef}
         />
