@@ -1,0 +1,27 @@
+@font-face {
+  font-family: myFirstFont;
+  src: url(../assets/fonts/get-schwifty/get_schwifty.ttf);
+}
+.navbar-container {
+  display: flex;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+  background-color: rgba(119, 119, 142, 0.425);
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid white;
+}
+.navbar-container .link {
+  color: rgb(27, 171, 27);
+  font-family: myFirstFont;
+  margin-left: 20px;
+}
+
+.navbar-icon {
+  width: 70px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid white;
+  margin-right: 20px;
+}/*# sourceMappingURL=Navbar.css.map */

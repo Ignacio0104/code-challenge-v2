@@ -1,0 +1,19 @@
+@font-face {
+  font-family: myFirstFont;
+  src: url(../assets/fonts/get-schwifty/get_schwifty.ttf);
+}
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 15px;
+}
+.button-container button {
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  padding: 1px 80px;
+  background-color: rgba(32, 216, 32, 0.671);
+  font-family: myFirstFont;
+  border: none;
+  border-radius: 10px;
+}/*# sourceMappingURL=HeroSection.css.map */

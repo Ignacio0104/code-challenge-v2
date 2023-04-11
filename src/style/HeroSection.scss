@@ -1,0 +1,13 @@
+@import "./Variables.scss";
+
+.button-container{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 15px;
+    
+
+    button{
+        @include buttonStyle()
+    }
+}
+

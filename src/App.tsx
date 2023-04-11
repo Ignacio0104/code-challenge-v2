@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect, useMemo } from "react";
+import "./App.css";
+import { useCharacterData } from "./hooks/useCharacterData";
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
+import Navbar from "./components/Navbar";
+import videoBackground from "./assets/videos/CosmosVideoBackgrounds.mp4";
+import HeroSection from "./components/HeroSection";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CharacterDetails from "./components/CharacterDetails";
 
-function App() {
+const App = () => {
   return (
+    <BrowserRouter>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <video autoPlay loop muted src={videoBackground}></video>
+      <Navbar></Navbar>
+      <Routes>
+        <Route path='/' element={<HeroSection/>}/>
+        <Route path='/character' element={<CharacterDetails/>}/>
+      </Routes>
     </div>
+    </BrowserRouter>
   );
 }
 
