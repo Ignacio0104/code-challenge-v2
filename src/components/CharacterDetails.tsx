@@ -12,7 +12,7 @@ const CharacterDetails = () => {
         <h2>{state.id}</h2>
         <h2>{state.name}</h2>
       </div>
-      <img src={state.image}></img>
+      <img src={state.image} />
       <div className="info-container">
         <h4>Status: {state.status}</h4>
         <h4>Species: {state.species}</h4>

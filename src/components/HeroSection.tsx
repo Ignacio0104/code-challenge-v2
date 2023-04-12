@@ -2,7 +2,7 @@ import { AgGridReact } from "ag-grid-react";
 import React, { useState, useEffect, useMemo } from "react";
 import { CellClickedEvent } from "ag-grid-community";
 import { useCharacterData } from "../hooks/useCharacterData";
-import "../style/HeroSection.css"
+import "../style/HeroSection.css";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 
@@ -17,7 +17,7 @@ const HeroSection = () => {
 
   const [pageNumber, setPageNumber] = useState(1);
   const [rowData, setRowData] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [columnDefs, setColumnDefs] = useState([
     { field: "id" },
     { field: "name" },
@@ -28,25 +28,6 @@ const HeroSection = () => {
       cellRenderer: (p: cellRendedererObject): string => p.value.name,
     },
   ]);
-
-  const onSuccess = () => {
-    setRowData(data?.data.data.characters.results);
-  };
-  const onError = () => {};
-
-  const { isLoading, data, error, isError, isFetching, refetch } =
-    useCharacterData(onSuccess, onError, pageNumber);
-
-  if (data?.data.data.characters.results.length === 0) {
-    setPageNumber((pageNumber) => pageNumber - 1);
-  }
-
-  if (!isLoading && !isFetching) {
-    //setRowData(data?.data.data.characters.results) //!Why is this not working? Too many re-renders
-  }
-
-  console.log(data?.data.data.characters.results);
-
   const defaultColDef = useMemo(
     () => ({
       flex: 1,
@@ -55,6 +36,31 @@ const HeroSection = () => {
     }),
     []
   );
+
+  const onSuccess = () => {
+    // setRowData(data?.characters.results);
+  };
+  const onError = () => {};
+
+  const { isLoading, data, isError, isFetching } = useCharacterData(
+    onSuccess,
+    onError,
+    pageNumber
+  );
+
+  if (data?.characters.results.length === 0) {
+    setPageNumber((pageNumber) => pageNumber - 1);
+  }
+
+  if (isLoading || isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error, please try again!</div>;
+  }
+
+  console.log(data);
 
   const cellClickedListener = (event: CellClickedEvent<any, any>) => {
     navigate("/character",{state: event.data})
@@ -67,7 +73,7 @@ const HeroSection = () => {
         style={{ width: "80vw", height: "70vh" }}
       >
         <AgGridReact
-          rowData={data?.data.data.characters.results}
+          rowData={data?.characters.results}
           columnDefs={columnDefs}
           animateRows={true}
           rowSelection="multiple"
