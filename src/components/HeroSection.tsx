@@ -4,7 +4,6 @@ import { CellClickedEvent } from "ag-grid-community";
 import { useCharacterData } from "../hooks/useCharacterData";
 import "../style/HeroSection.css";
 import { useNavigate } from "react-router-dom";
-import Loading from "./Loading";
 
 const HeroSection = () => {
   interface valueObject {
@@ -50,10 +49,6 @@ const HeroSection = () => {
 
   if (data?.characters.results.length === 0) {
     setPageNumber((pageNumber) => pageNumber - 1);
-  }
-
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
   }
 
   if (isError) {

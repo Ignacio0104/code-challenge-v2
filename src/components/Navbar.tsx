@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <div className='navbar-container'>
       <h3><Link className='link' style={{textDecoration:"none"}} to="/">Rick and Morty API</Link></h3>
-      <img src={logoRick} className='navbar-icon'></img>
+      <img src={logoRick} className='navbar-icon' alt='navbar icon'></img>
     </div>
   )
 }
