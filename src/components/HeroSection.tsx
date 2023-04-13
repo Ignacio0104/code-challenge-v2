@@ -84,6 +84,7 @@ const HeroSection = () => {
           </button>
           <h3>Page {pageNumber}</h3>
           <button
+            title="button-next"
             className={
               data?.characters.info.next ? "button-enabled" : "button-disabled"
             }
