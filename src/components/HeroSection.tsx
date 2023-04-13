@@ -55,15 +55,13 @@ const HeroSection = () => {
     return <div>Error, please try again!</div>;
   }
 
-  console.log(data);
-
   const cellClickedListener = (event: CellClickedEvent<any, any>) => {
     navigate("/character",{state: event.data})
   };
 
   return (
-    <div>
-      <div
+    <div title="agGridContainer">
+      <div 
         className="ag-theme-alpine-dark cell-style"
         style={{ width: "80vw", height: "70vh" }}
       >
