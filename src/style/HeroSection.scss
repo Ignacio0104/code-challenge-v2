@@ -13,8 +13,17 @@
         font-weight: bold;
         font-size: 3vh;
     }
+
     button{
+        display: flex;
+        align-items: center;
+    }
+    .button-enabled{
         @include buttonStyle()
+    }
+
+    .button-disabled{
+        background-color: gray;
     }
 }
 

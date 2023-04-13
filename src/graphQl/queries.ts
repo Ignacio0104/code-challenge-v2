@@ -10,6 +10,9 @@ export const ALL_CHARACTERS = `
 export const ALL_CHARACTERS_PAGED = `
   query ($page: Int!) {
 characters(page: $page){
+  info{
+    count pages next prev
+  }
   results{
     id name status species image origin{ name }
   }

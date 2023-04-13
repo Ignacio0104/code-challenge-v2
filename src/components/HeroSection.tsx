@@ -4,6 +4,7 @@ import { CellClickedEvent } from "ag-grid-community";
 import { useCharacterData } from "../hooks/useCharacterData";
 import "../style/HeroSection.css";
 import { useNavigate } from "react-router-dom";
+import { SpinnerCircular } from "spinners-react";
 
 const HeroSection = () => {
   interface valueObject {
@@ -36,12 +37,6 @@ const HeroSection = () => {
     []
   );
 
-  const handleChangePage = (value:number)=>{
-    if(pageNumber + value >0){
-      setPageNumber(prevValue => prevValue + value)
-    }
-  }
-
   const onSuccess = () => {
     // setRowData(data?.characters.results);
   };
@@ -56,13 +51,8 @@ const HeroSection = () => {
   if (isError) {
     return <div>Error, please try again!</div>;
   }
-
-  if (data?.characters.results.length === 0) {
-    setPageNumber((pageNumber) => pageNumber - 1);
-  }
-
   const cellClickedListener = (event: CellClickedEvent<any, any>) => {
-    navigate("/character",{state: event.data})
+    navigate("/character", { state: event.data });
   };
 
   return (
@@ -83,9 +73,25 @@ const HeroSection = () => {
           defaultColDef={defaultColDef}
         />
         <div className="button-container">
-          <button onClick={() => handleChangePage(-1)}>Previous</button>
+          <button
+            className={
+              data?.characters.info.prev ? "button-enabled" : "button-disabled"
+            }
+            disabled={!data?.characters.info.prev}
+            onClick={() => setPageNumber((prevNumber) => prevNumber - 1)}
+          >
+            {isLoading ? <SpinnerCircular size="24" /> : "Previous"}
+          </button>
           <h3>Page {pageNumber}</h3>
-          <button onClick={() => handleChangePage(1)}>Next</button>
+          <button
+            className={
+              data?.characters.info.next ? "button-enabled" : "button-disabled"
+            }
+            disabled={!data?.characters.info.next}
+            onClick={() => setPageNumber((prevNumber) => prevNumber + 1)}
+          >
+            {isLoading ? <SpinnerCircular size="24" /> : "Next"}
+          </button>
         </div>
       </div>
     </div>

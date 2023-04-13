@@ -16,6 +16,10 @@
   font-size: 3vh;
 }
 .button-container button {
+  display: flex;
+  align-items: center;
+}
+.button-container .button-enabled {
   font-size: 3vh;
   color: white;
   cursor: pointer;
@@ -24,6 +28,9 @@
   font-family: myFirstFont;
   border: none;
   border-radius: 10px;
+}
+.button-container .button-disabled {
+  background-color: gray;
 }
 
 .ag-header-cell-label {
