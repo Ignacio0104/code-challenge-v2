@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 @font-face {
   font-family: myFirstFont;
   src: url(../assets/fonts/get-schwifty/get_schwifty.ttf);
@@ -5,7 +6,14 @@
 .button-container {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   padding-top: 15px;
+  height: 5vh;
+}
+.button-container h3 {
+  font-family: "Permanent Marker", cursive;
+  font-weight: bold;
+  font-size: 3vh;
 }
 .button-container button {
   font-size: 3vh;

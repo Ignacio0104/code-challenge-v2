@@ -1,11 +1,18 @@
 @import "./Variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 .button-container{
     display: flex;
     justify-content: space-around;
+    align-items: center;
     padding-top: 15px;
-    
+    height: 5vh;
 
+    h3{
+        font-family: 'Permanent Marker', cursive;
+        font-weight: bold;
+        font-size: 3vh;
+    }
     button{
         @include buttonStyle()
     }

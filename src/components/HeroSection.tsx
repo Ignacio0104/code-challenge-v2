@@ -36,6 +36,12 @@ const HeroSection = () => {
     []
   );
 
+  const handleChangePage = (value:number)=>{
+    if(pageNumber + value >0){
+      setPageNumber(prevValue => prevValue + value)
+    }
+  }
+
   const onSuccess = () => {
     // setRowData(data?.characters.results);
   };
@@ -47,12 +53,12 @@ const HeroSection = () => {
     pageNumber
   );
 
-  if (data?.characters.results.length === 0) {
-    setPageNumber((pageNumber) => pageNumber - 1);
-  }
-
   if (isError) {
     return <div>Error, please try again!</div>;
+  }
+
+  if (data?.characters.results.length === 0) {
+    setPageNumber((pageNumber) => pageNumber - 1);
   }
 
   const cellClickedListener = (event: CellClickedEvent<any, any>) => {
@@ -60,8 +66,9 @@ const HeroSection = () => {
   };
 
   return (
-    <div title="agGridContainer">
-      <div 
+    <div>
+      <div
+        title="agGridContainer"
         className="ag-theme-alpine-dark cell-style"
         style={{ width: "80vw", height: "70vh" }}
       >
@@ -76,18 +83,9 @@ const HeroSection = () => {
           defaultColDef={defaultColDef}
         />
         <div className="button-container">
-          <button
-            onClick={() =>
-              setPageNumber((pageNumber) =>
-                pageNumber - 1 > 0 ? pageNumber - 1 : 1
-              )
-            }
-          >
-            Previous
-          </button>
-          <button onClick={() => setPageNumber((pageNumber) => pageNumber + 1)}>
-            Next
-          </button>
+          <button onClick={() => handleChangePage(-1)}>Previous</button>
+          <h3>Page {pageNumber}</h3>
+          <button onClick={() => handleChangePage(1)}>Next</button>
         </div>
       </div>
     </div>
