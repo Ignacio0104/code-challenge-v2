@@ -29,6 +29,6 @@ export const useCharacterData = (
   return useQuery(
     ["characters", pageNumber],
     () => fetchCharactersWithPage(ALL_CHARACTERS_PAGED, pageNumber),
-    { onSuccess }
+    { onSuccess, onError }
   );
 };

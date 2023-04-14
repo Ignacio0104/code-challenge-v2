@@ -74,67 +74,54 @@ describe("functionality test", () => {
     await waitFor(() => expect(buttonArray[1]).toHaveTextContent("Next"));
     fireEvent.click(buttonArray[1]);
     await waitFor(() => expect(pageNumber).toHaveTextContent("Page 2"));
-
-    // fireEvent.click(buttonArray[1]);
-    // fireEvent.click(buttonArray[1]);
-    // console.log(prettyDOM(buttonArray[1]));
-    // fireEvent.click(buttonArray[1]);
-    // fireEvent.click(buttonArray[1]);
-
-    // expect(pageNumber).toHaveTextContent("Page 3");
   });
 
-  // test("button Previous page number is 1 is disabled", async () => {
-  //   const buttonNext = screen.getByText("Previous");
-  //   await waitFor(() => {
-  //     expect(buttonNext).toHaveAttribute("disabled");
-  //   });
-  // });
-
-  // test("button Previous when pressed and page number is 1, it doesn't go to 0", async() => {
-  //   const pageNumber = screen.getByText("Page 1");
-  //   const buttonPrevious = screen.getByText("Previous")
-  //   fireEvent.click(buttonPrevious)
-  //   fireEvent.click(buttonPrevious)
-  //   fireEvent.click(buttonPrevious)
-  //   expect(pageNumber).toHaveTextContent("Page 1")
-  // });
-
-  // test("button Next when pressed and there is no data, it will maintain previous page", async() => {
-  //   const mockUseCharacterData = useCharacterData as jest.MockedFunction<typeof useCharacterData>;
-  //   mockUseCharacterData.mockReturnValue({
-  //     data: {
-  //       characters: {
-  //         results: []
-  //       }
-  //     },
-  //   });
-
-  //   const pageNumber = screen.getByText("Page 1");
-  //   const buttonPrevious = screen.getByText("Next")
-  //   for (let index = 0; index < 100; index++) {
-  //     fireEvent.click(buttonPrevious)
-  //   }
-  //   expect(pageNumber).toHaveTextContent("Page 43")
-  // });
+  test("button Previous page number is 1 is disabled", async () => {
+    const buttonArray = screen.getAllByRole("button");
+    await waitFor(() => expect(buttonArray[0]).toHaveTextContent("Previous"));
+    expect(buttonArray[0]).toHaveAttribute("disabled");
+  });
 });
 
-describe("useQuery hook testing", () => {
-  test("check if the query call return is success", async () => {
+describe("My test suite", () => {
+  beforeEach(() => {
     const queryClient = new QueryClient();
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    render(
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
     );
-    const { result } = renderHook(
-      () =>
-        useCharacterData(
-          () => {},
-          () => {},
-          1
-        ),
-      { wrapper }
+  });
+  test("My test case", async () => {
+    const useCharacterDataSpy = jest.spyOn(
+      require("./hooks/useCharacterData"),
+      "useCharacterData"
     );
+    const mockData = {}; // Your mock data here
+    useCharacterDataSpy.mockReturnValue({
+      isError: true,
+      isLoading: false,
+      isFething: false,
+      data: mockData,
+      retry: false,
+    });
 
-    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    expect(screen.getByText(/Error, please try/i)).toBeInTheDocument();
+    useCharacterDataSpy.mockRestore();
   });
 });
+
+// describe("useQuery hook testing", () => {
+//   test("check if the query call return is success", async () => {
+//     const onSuccess = jest.fn();
+//     const onError = jest.fn();
+//     const pageNumber = 1;
+//     const useCharacterDataSpy = jest.spyOn(
+//       require("./hooks/useCharacterData"),
+//       "useCharacterData"
+//     );
+//     const mockData = {}; // Your mock data here
+//     useCharacterDataSpy.mockReturnValue({ isError: true, data: mockData });
+//     await waitFor(() => expect(result.current.isSuccess).toBe(true));
+//   });
+// });
