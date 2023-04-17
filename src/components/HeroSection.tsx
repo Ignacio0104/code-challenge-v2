@@ -49,7 +49,11 @@ const HeroSection = () => {
   );
 
   if (isError) {
-    return <div>Error, please try again!</div>;
+    return (
+      <div>
+        <h1>Error, please try again!</h1>
+      </div>
+    );
   }
   const cellClickedListener = (event: CellClickedEvent<any, any>) => {
     navigate("/character", { state: event.data });

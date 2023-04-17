@@ -3,6 +3,8 @@ import { prettyDOM, render, renderHook, screen, waitFor } from "./test-utils";
 import App from "./App";
 import user from "@testing-library/user-event";
 import { useCharacterData } from "./hooks/useCharacterData";
+import { server } from "./mocks/server";
+import { rest } from "msw";
 
 describe("components mount correctly", () => {
   test("navbar title to be in the document", () => {
@@ -60,5 +62,28 @@ describe("functionality test", () => {
     render(<App />);
     const grid = await screen.findByRole("treegrid");
     await waitFor(() => expect(grid).toHaveAttribute("aria-rowcount", "4"));
+  });
+  test("ag grid should disappear if there's an error and a message will be shown", async () => {
+    server.use(
+      rest.post("https://rickandmortyapi.com/graphql", (req, res, ctx) => {
+        return res(
+          ctx.status(400),
+          ctx.json({
+            isError: true,
+            isFetching: false,
+            isLoading: false,
+            isSuccess: false,
+          })
+        );
+      })
+    );
+    render(<App />);
+    const grid = await screen.findByRole("treegrid");
+    await waitFor(() => {
+      expect(
+        screen.getByRole("heading", { name: "Error, please try again!" })
+      ).toBeInTheDocument();
+    });
+    expect(grid).not.toBeInTheDocument();
   });
 });
