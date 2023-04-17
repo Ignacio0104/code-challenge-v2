@@ -48,7 +48,7 @@ const HeroSection = () => {
     pageNumber
   );
 
-  if (!isLoading && !isFetching && isError) {
+  if (isError) {
     return <div>Error, please try again!</div>;
   }
   const cellClickedListener = (event: CellClickedEvent<any, any>) => {
