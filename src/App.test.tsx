@@ -1,7 +1,8 @@
 import React from "react";
-import { render, screen, waitFor } from "./test-utils";
+import { prettyDOM, render, renderHook, screen, waitFor } from "./test-utils";
 import App from "./App";
 import user from "@testing-library/user-event";
+import { useCharacterData } from "./hooks/useCharacterData";
 
 describe("components mount correctly", () => {
   test("navbar title to be in the document", () => {
@@ -35,22 +36,29 @@ describe("components mount correctly", () => {
 });
 
 describe("functionality test", () => {
-  test("button Next when pressed 2 times update pageNumber state in 2", async () => {
+  test("button Next when pressed update pageNumber state by 1", async () => {
     user.setup();
-    const pageNumber = screen.getByText("Page 1");
+    render(<App />);
+    const pageNumber = await screen.findByText("Page 1");
     const button = await screen.findByRole("button", {
       name: "Next",
     });
-    expect(pageNumber).toHaveTextContent("Page 1");
+    expect(pageNumber).toBeInTheDocument();
     expect(button).toBeInTheDocument();
     await user.click(button);
-    await user.click(button);
-    expect(pageNumber).toHaveTextContent("Page 3");
+    expect(pageNumber).toHaveTextContent("Page 2");
   });
 
-  // test("button Previous page number is 1 is disabled", async () => {
-  //   const buttonArray = screen.getAllByRole("button");
-  //   await waitFor(() => expect(buttonArray[0]).toHaveTextContent("Previous"));
-  //   expect(buttonArray[0]).toHaveAttribute("disabled");
-  // });
+  test("button Previous page number is 1 is disabled", async () => {
+    render(<App />);
+    const prevBtn = await screen.findByRole("button", { name: "Previous" });
+    console.log(prettyDOM(prevBtn));
+    expect(prevBtn).toHaveAttribute("disabled");
+  });
+
+  test("ag grid should have 3 rows", async () => {
+    render(<App />);
+    const grid = await screen.findByRole("treegrid");
+    await waitFor(() => expect(grid).toHaveAttribute("aria-rowcount", "4"));
+  });
 });
