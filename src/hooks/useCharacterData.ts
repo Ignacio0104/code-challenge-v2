@@ -19,7 +19,6 @@ const fetchCharactersWithPage = async (query: string, pageNumber: number) => {
     requestOptions
   );
   const data = await response.json();
-  console.log(response)
   return data.data;
 };
 export const useCharacterData = (

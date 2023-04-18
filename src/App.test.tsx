@@ -54,7 +54,6 @@ describe("functionality test", () => {
   test("button Previous page number is 1 is disabled", async () => {
     render(<App />);
     const prevBtn = await screen.findByRole("button", { name: "Previous" });
-    console.log(prettyDOM(prevBtn));
     expect(prevBtn).toHaveAttribute("disabled");
   });
 
@@ -85,5 +84,23 @@ describe("functionality test", () => {
       ).toBeInTheDocument();
     });
     expect(grid).not.toBeInTheDocument();
+  });
+
+  test("after clicking the cell, the card should appear", async () => {
+    user.setup();
+    render(<App />);
+    const grid = await screen.findByRole("treegrid");
+    await waitFor(() => expect(grid).toHaveAttribute("aria-rowcount", "4"));
+    const rows = await screen.findAllByRole("row");
+    expect(rows[0]).toBeInTheDocument();
+    const gridCell = await screen.findAllByRole("gridcell");
+    expect(gridCell[0]).toBeInTheDocument();
+    await user.click(gridCell[0]);
+    const nameTitle = await screen.findByRole("heading", {
+      name: "Rick Sanchez",
+    });
+    expect(nameTitle).toBeInTheDocument();
+    const cardNumber = await screen.findByRole("heading", { name: "1" });
+    expect(cardNumber).toBeInTheDocument();
   });
 });
