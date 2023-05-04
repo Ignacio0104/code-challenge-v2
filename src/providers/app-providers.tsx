@@ -4,7 +4,7 @@ export const AppProviders = ({ children }: { children: React.ReactNode }) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        retry: false,
+        retry: false, 
       },
     },
   });

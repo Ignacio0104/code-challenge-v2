@@ -3,18 +3,18 @@ import React, { useState, useEffect, useMemo } from "react";
 import { CellClickedEvent } from "ag-grid-community";
 import { useCharacterData } from "../hooks/useCharacterData";
 import "../style/HeroSection.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { SpinnerCircular } from "spinners-react";
+interface valueObject {
+  name: string;
+}
+
+interface cellRendedererObject {
+  value: valueObject;
+}
 
 const HeroSection = () => {
-  interface valueObject {
-    name: string;
-  }
-
-  interface cellRendedererObject {
-    value: valueObject;
-  }
-
+  const { state } = useLocation();
   const [pageNumber, setPageNumber] = useState(1);
   const [rowData, setRowData] = useState([]);
   const navigate = useNavigate();
@@ -37,6 +37,10 @@ const HeroSection = () => {
     []
   );
 
+  useEffect(() => {
+    state ? setPageNumber(state) : setPageNumber(1);
+  }, []);
+
   const onSuccess = () => {
     // setRowData(data?.characters.results);
   };
@@ -56,7 +60,9 @@ const HeroSection = () => {
     );
   }
   const cellClickedListener = (event: CellClickedEvent<any, any>) => {
-    navigate("/character", { state: event.data });
+    navigate("/character", {
+      state: { character: event.data, page: pageNumber },
+    });
   };
 
   return (

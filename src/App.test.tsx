@@ -93,9 +93,9 @@ describe("functionality test", () => {
     await waitFor(() => expect(grid).toHaveAttribute("aria-rowcount", "4"));
     const rows = await screen.findAllByRole("row");
     expect(rows[0]).toBeInTheDocument();
-    const gridCell = await screen.findAllByRole("gridcell");
-    expect(gridCell[0]).toBeInTheDocument();
-    await user.click(gridCell[0]);
+    const gridCell = await screen.findByRole("gridcell", { name: "1" });
+    expect(gridCell).toBeInTheDocument();
+    await user.click(gridCell);
     const nameTitle = await screen.findByRole("heading", {
       name: "Rick Sanchez",
     });

@@ -5,19 +5,27 @@ import "../style/CharacterDetails.css";
 const CharacterDetails = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  console.log(state);
+
   return (
     <div className="card-container">
       <div className="title-container">
-        <h2>{state.id}</h2>
-        <h2>{state.name}</h2>
+        <h2>{state.character.id}</h2>
+        <h2>{state.character.name}</h2>
       </div>
-      <img src={state.image} />
+      <img src={state.character.image} alt={`${state.character.name}`} />
       <div className="info-container">
-        <h4>Status: {state.status}</h4>
-        <h4>Species: {state.species}</h4>
+        <h4>Status: {state.character.status}</h4>
+        <h4>Species: {state.character.species}</h4>
       </div>
-      <button onClick={() => navigate("/")}>Back</button>
+      <button
+        onClick={() =>
+          navigate("/", {
+            state: state.page,
+          })
+        }
+      >
+        Back
+      </button>
     </div>
   );
 };
